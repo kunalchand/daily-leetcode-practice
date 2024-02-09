@@ -1,5 +1,5 @@
 class Solution:
-    def divideArray(self, nums: List[int], k: int) -> List[List[int]]:
+    def divideArray(self, nums: list[int], k: int) -> list[list[int]]:
         subarray_count = len(nums) // 3
         ans = [[] for _ in range(subarray_count)]
 
@@ -12,3 +12,7 @@ class Solution:
                 return []
 
         return ans
+
+
+print(Solution().divideArray([1, 3, 4, 8, 7, 9, 3, 5, 1], 2))
+print(Solution().divideArray([1, 3, 3, 2, 7, 3], 3))
