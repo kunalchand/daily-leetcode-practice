@@ -1,5 +1,3 @@
-package kunal;
-
 import java.util.Arrays;
 
 class Solution {
