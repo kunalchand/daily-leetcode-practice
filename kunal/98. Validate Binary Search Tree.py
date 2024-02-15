@@ -27,7 +27,5 @@ class Solution:
         if root == None:
             return True
         else:
-            left_max, left_min, left_bool = self.getMaxMin(root.left)
-            right_max, right_min, right_bool = self.getMaxMin(root.right)
-
-            return left_max < root.val < right_min and left_bool and right_bool
+            root_max, root_min, root_bool = self.getMaxMin(root)
+            return root_bool
