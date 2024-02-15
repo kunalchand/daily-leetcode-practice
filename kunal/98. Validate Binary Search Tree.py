@@ -24,8 +24,5 @@ class Solution:
             )
 
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
-        if root == None:
-            return True
-        else:
-            root_max, root_min, root_bool = self.getMaxMin(root)
-            return root_bool
+        root_max, root_min, root_bool = self.getMaxMin(root)
+        return root_bool
