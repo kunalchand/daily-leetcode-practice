@@ -2,11 +2,11 @@ from typing import List
 
 class Solution:
     '''
-    APPROACH-1: at every step of recursion, 
+    APPROACH-1: BACKTRACKING at every step of recursion, 
     decide to choose or to not choose the current nums[i]
     you have 2 choices at every node of the decision tree
     TIME: O(N * 2 ^ N)
-    SPACE: no extra space, but recursion stack
+    SPACE: O(N), subset can atmost store N element, ignoring output array powerset
     '''
     def subsets(self, nums: List[int]) -> List[List[int]]:
         def helper(idx, subset):
@@ -27,10 +27,10 @@ class Solution:
         return power_set
 
     '''
-    APPROACH-2: same as approach-1
+    APPROACH-2: (BACKTRACKING) same as approach-1
     coded a lil different
     TIME: O(N * 2 ^ N)
-    SPACE: no extra space, but recursion stack
+    SPACE: O(N), subset can atmost store N element, ignoring output array powerset
     '''
     def subsets(self, nums: List[int]) -> List[List[int]]:
         power_set, subset = [], []
@@ -48,3 +48,28 @@ class Solution:
 
         dfs(0)
         return power_set
+    
+    '''
+    APPROACH-3: RECURSION
+    using base and addon list
+    at every iteration, expand base and shrink addon
+    TIME: O(N * 2 ^ N)
+    SPACE: no extra space, but recursion stack
+    '''
+    def subsets3(self, nums: List[int]) -> List[List[int]]:
+        def helper(base: List[int], addon: List[int]) -> None:
+            for idx, n in enumerate(addon):
+                new_base = base[:] + [n]
+                power_set.append(new_base)
+                helper(new_base, addon[idx + 1:])
+
+        power_set = []
+        power_set.append([])                     # for subset of size 0
+        for n in nums: power_set.append([n])     # for subsets of size 1
+        
+        for idx, n in enumerate(nums):           # for subsets of size 2 or more
+            helper([n], nums[idx + 1 : ])
+        return power_set
+    
+
+print(Solution().subsets3([1,2,3]))
