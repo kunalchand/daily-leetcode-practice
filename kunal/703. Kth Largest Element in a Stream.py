@@ -16,24 +16,12 @@ class KthLargest:
         self.k = k
 
         for num in nums:
-            if self.minHeap:
-                if len(self.minHeap) < self.k:
-                    heapq.heappush(self.minHeap, num)
-                elif len(self.minHeap) == self.k and num >= self.minHeap[0]:
-                    heapq.heappush(self.minHeap, num)
-                    heapq.heappop(self.minHeap)
-            else:
-                heapq.heappush(self.minHeap, num)
+            self.add(num)
 
     def add(self, val: int) -> int:
-        if self.minHeap:
-            if len(self.minHeap) < self.k:
-                heapq.heappush(self.minHeap, val)
-            elif len(self.minHeap) == self.k and val >= self.minHeap[0]:
-                heapq.heappush(self.minHeap, val)
-                heapq.heappop(self.minHeap)
-        else:
-            heapq.heappush(self.minHeap, val)
+        heapq.heappush(self.minHeap, val)
+        if len(self.minHeap) > self.k and val >= self.minHeap[0]:
+            heapq.heappop(self.minHeap)
 
         return self.minHeap[0]
 
