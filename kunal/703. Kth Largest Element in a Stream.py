@@ -12,15 +12,17 @@ from typing import Dict, List, Optional, Tuple, Union
 
 class KthLargest:
     def __init__(self, k: int, nums: List[int]):
-        self.minHeap = []
         self.k = k
+        self.minHeap = []
 
         for num in nums:
             self.add(num)
 
     def add(self, val: int) -> int:
-        heapq.heappush(self.minHeap, val)
-        if len(self.minHeap) > self.k and val >= self.minHeap[0]:
+        if len(self.minHeap) < self.k:
+            heapq.heappush(self.minHeap, val)
+        elif len(self.minHeap) == self.k and val >= self.minHeap[0]:
+            heapq.heappush(self.minHeap, val)
             heapq.heappop(self.minHeap)
 
         return self.minHeap[0]
