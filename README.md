@@ -1,2 +1,2 @@
-# daily-leetcode-challenge
-Daily LeetCode Challenge
+# daily-leetcode-practice
+Daily LeetCode Practice
