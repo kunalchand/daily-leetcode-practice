@@ -69,7 +69,7 @@ class Solution:
         return len(resultList)
     """
 
-    # O(n logn)
+    # O(n log26) = O(n)
     class Element:
         def __init__(self, char: str, count: int):
             self.char = char
