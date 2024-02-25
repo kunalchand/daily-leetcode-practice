@@ -97,7 +97,7 @@ class Solution:
         length = self.getListLength(head)
 
         if length == 0 or length == 1:
-            return head
+            pass
         elif length % 2 == 1:  # Odd
             mid = self.findOddMid(head)
 
@@ -105,9 +105,7 @@ class Solution:
             list2 = self.reverseList(None, mid.next)
             mid.next = None
 
-            self.printLists(list1, list2)
-
-            return self.mergeList(list1, list2, "list1")
+            self.mergeList(list1, list2, "list1")
         elif length % 2 == 0:  # Even
             mid = self.findEvenMid(head)
             prevMid = self.findPrevMid(head, mid)
@@ -117,6 +115,4 @@ class Solution:
             prevMid.next = None
             mid.next = None
 
-            self.printLists(list1, list2)
-
-            return self.mergeList(list1, list2, "list1")
+            self.mergeList(list1, list2, "list1")
