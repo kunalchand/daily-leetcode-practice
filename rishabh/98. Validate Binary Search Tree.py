@@ -60,4 +60,26 @@ class Solution:
 
         # pick the first value of tuple
         return dfs(root)[0]
+    
+
+    '''
+    APPROACH-3: do in-order traversal
+    and check the res[], it should be in increasing order for a BST
+    TIME: O(N)
+    SPACE: O(N), res[]
+    '''
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        res = []
+        def in_order_traversal(node):
+            if not node: return
+
+            in_order_traversal(node.left)
+            res.append(node.val)
+            in_order_traversal(node.right)
         
+        in_order_traversal(root)
+
+        for i in range(len(res) - 1):
+            # if order is not increasing
+            if res[i + 1] <= res[i]: return False
+        return True
