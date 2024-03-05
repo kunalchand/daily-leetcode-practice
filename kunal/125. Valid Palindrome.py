@@ -78,3 +78,8 @@ class Solution:
             end -= 1
 
         return True
+
+
+print(Solution().isPalindrome("A man, a plan, a canal: Panama"))
+print(Solution().isPalindrome("race a car"))
+print(Solution().isPalindrome(" "))
