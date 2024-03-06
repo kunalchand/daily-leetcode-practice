@@ -72,6 +72,46 @@ class Solution:
         res.append(newInterval)     # if non-overlapping condition-1 is never true
         return res
 
+    '''
+    APPROACH-3: insert new_interval at the relevant position
+    use the concept of merge intervals(https://leetcode.com/problems/merge-intervals/description/) to make the output
+    TIME: O(N)
+    SPACE: O(1)
+    '''
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        left, idx = 0, -1
+        for idx, curr_interval in enumerate(intervals):
+            if newInterval[left] < curr_interval[left]:                         # add interval to its correct position
+                intervals.insert(idx, newInterval)
+                break
+        if idx == len(intervals) - 1: intervals.append(newInterval)             # if pointer reaches end, append new interval at end
+        return self.merge(intervals)
+
+    def merge(self, sorted_intervals: List[List[int]]) -> List[List[int]]:
+        # sort
+        # traverse
+            # keep increasing the blob if overlap
+            # add blob to res if found a break and start a new blob
+            # keep doing this till reached end
+        # intervals.sort(key=lambda x:x[0])
+        left, right = 0,1
+        res, cloud = [], sorted_intervals[0]
+
+        for idx in range(1, len(sorted_intervals)):
+            curr_interval = sorted_intervals[idx]
+            # overlap
+            if cloud[right] >= curr_interval[left]:                                 # cloud is coming over the curr_interval 
+                cloud = [cloud[left], max(cloud[right], curr_interval[right])]      # merge curr_interval into cloud
+            else:   # no overlap
+                res.append(cloud)
+                cloud = curr_interval
+
+        res.append(cloud)
+        return res 
+
+
+
 # intervals, newInterval = [[1,3],[6,9]], [2,5]
 intervals, newInterval = [[1,2],[3,5],[6,7],[8,10],[12,16]], [4,8]
-print(Solution().insert(intervals, newInterval))
+# print(Solution().insert(intervals, newInterval))
+print(Solution().insert3(intervals, newInterval))
