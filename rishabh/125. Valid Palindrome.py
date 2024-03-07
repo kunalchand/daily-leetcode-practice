@@ -29,12 +29,18 @@ class Solution:
         left, right = L, R
 
         while left < right:
-            # skip all non-alphanumeric chars from left and right
-            while left < right and not s[left].isalnum(): left += 1
-            while left < right and not s[right].isalnum(): right -= 1
-            
-            # check palindrome condition
-            if s[left].lower() != s[right].lower(): return False
-            left += 1
-            right -= 1
+            # we can use the built-in char.isalnum() as well                            # skip all non-alphanumeric chars from left and right
+            while left < right and not self.is_alpha_numeric(s[left]):              
+                left += 1
+            while left < right and not self.is_alpha_numeric(s[right]):
+                right -= 1
+
+            if s[left].lower() != s[right].lower():                                     # check palindrome condition
+                return False
+            left, right = left + 1, right - 1
         return True
+
+    def is_alpha_numeric(self, c):
+        return ((ord("A") <= ord(c) <= ord("Z")) or
+                (ord("a") <= ord(c) <= ord("z")) or
+                (ord("0") <= ord(c) <= ord("9")))
