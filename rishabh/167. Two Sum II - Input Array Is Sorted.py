@@ -34,11 +34,20 @@ class Solution:
     TIME: O(N * log N)
     SPACE: O(1)
     '''
+    '''
+    :param numbers: A sorted list of integers.
+    :param target: The target integer that the sum of the two numbers should equal to.
+    :return: A list containing the indices (1-indexed) of the two numbers that add up to the target.
+                If no such pair is found, returns [None, None].
+    '''
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
         start, end = 0, len(numbers) - 1
         while start < end:
             curr_sum = numbers[start] + numbers[end]
-            if curr_sum == target: return [start + 1, end + 1]
-            elif curr_sum > target: end -= 1
-            elif curr_sum < target: start += 1
-        return [None, None]
+            if curr_sum == target:
+                return [start + 1, end + 1]             # Return the indices of the two numbers
+            elif curr_sum > target:
+                end -= 1                                # Decrement end pointer if the sum is greater than the target
+            elif curr_sum < target:
+                start += 1                              # Increment start pointer if the sum is less than the target
+        return [None, None]                             # If no such pair is found, return [None, None]
