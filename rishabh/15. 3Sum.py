@@ -30,15 +30,14 @@ class Solution:
             l, r = idx + 1, n
             while l < r:
                 three_sum = nums[idx] + nums[l] + nums[r]
-                if three_sum < target:
-                    l += 1
-                elif target < three_sum:
+                if three_sum < target:                                                  # move toward right (bigger values)
+                    l += 1                  
+                elif target < three_sum:                                                # move toward left (smaller values)
                     r -= 1
-                elif target == three_sum:
-                    res.append([nums[idx], nums[l], nums[r]])
+                elif three_sum == target:                                               # if three_sum == 0    
+                    res.append([nums[idx], nums[l], nums[r]])                           # add to result
                     l, r = l + 1, r - 1
-
-                    while l < r and nums[l-1] == nums[l]:
+                    while l < r and nums[l - 1] == nums[l]:                             # skip duplicates within the inner array, eg: [-2,-2,0,0,0,2,2]
                         l += 1
                     while l < r and nums[r + 1] == nums[r]:
                         r -= 1
