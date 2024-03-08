@@ -10,7 +10,7 @@ class Solution:
     TIME: O(N * log N)
     SPACE: O(1)
     '''
-    def twoSum(self, numbers: List[int], target: int) -> List[int]:
+    def twoSum_approach_1(self, numbers: List[int], target: int) -> List[int]:
         def binary_search(start_idx: int, complement: int) -> int:
             left, right = start_idx, len(numbers) - 1
             while (left <= right):
@@ -51,3 +51,34 @@ class Solution:
             elif curr_sum < target:
                 start += 1                              # Increment start pointer if the sum is less than the target
         return [None, None]                             # If no such pair is found, return [None, None]
+
+
+    def test_twoSum(self):
+        solution = Solution()
+
+        # Test case where the target is present in the list
+        assert solution.twoSum([2, 7, 11, 15], 9) == [1, 2]
+
+        # Test case where the target is not present in the list
+        assert solution.twoSum([2, 7, 11, 15], 10) == [None, None]
+
+        # Test case where the target is achieved by the first and last elements
+        assert solution.twoSum([2, 7, 11, 15], 17) == [1, 4]
+
+        # Test case where the list contains negative numbers
+        assert solution.twoSum([-3, -2, -1, 0, 4, 7], -5) == [1, 2]
+
+        # Test case where the list contains duplicate numbers
+        assert solution.twoSum([1, 2, 2, 3, 4, 5], 4) == [2, 3] or [1,3]
+
+        # Test case where the list contains only two elements and they add up to the target
+        assert solution.twoSum([1, 2], 3) == [1, 2]
+
+        # Test case where the list contains only two elements but they don't add up to the target
+        assert solution.twoSum([1, 2], 5) == [None, None]
+
+        print("All test cases passed successfully!")
+
+
+# Run the test cases
+Solution().test_twoSum()
