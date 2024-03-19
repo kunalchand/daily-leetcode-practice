@@ -1,3 +1,4 @@
+from typing import List
 class Solution:
     '''
     APPROAHC: 2 POINTERS
