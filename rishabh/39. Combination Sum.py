@@ -31,7 +31,7 @@ class IterativeRecursion:
         res = []
         path = []
 
-        def helper(start):
+        def helper(start) -> None:
             if sum(path) > target:
                 return
             if sum(path) == target:
