@@ -7,6 +7,11 @@ class Solution:
     you have 2 choices at every node of the decision tree
     TIME: O(N * 2 ^ N)
     SPACE: O(N), subset can atmost store N element, ignoring output array powerset
+
+    notice the base condition 
+    according to your binary tree you'll find the ans at leaf nodes
+    hence idx reaching end is imp, not the len(curr_path)
+
     '''
     def subsets(self, nums: List[int]) -> List[List[int]]:
         def helper(idx, subset):
