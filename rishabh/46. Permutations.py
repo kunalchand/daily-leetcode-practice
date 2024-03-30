@@ -17,6 +17,10 @@ class Solution:
         - swap
      
     TIME: O(N * N!)
+
+    in approach 2 (build the whole path):
+    Notice how len(curr) == len(nums) is a terminating condition 
+    bcz each ans is same length as input
     '''
 
     '''
