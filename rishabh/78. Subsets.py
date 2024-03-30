@@ -1,5 +1,8 @@
 from typing import List
 
+'''
+TIME: N * (2 ^ N)           2 ^ N nodes, N work on each node
+'''
 class Solution:
     '''
     APPROACH-1: BACKTRACKING at every step of recursion, 
@@ -76,5 +79,39 @@ class Solution:
             helper([n], nums[idx + 1 : ])
         return power_set
     
+    
+    '''
+    APPROACH-4: left-skew tree where at each node, you have branches only to forward nodes and each node is an answer
+                []
+           1/   2|   \3
+           /     |     \
+        [1]     [2]      [3]  
+         /\       \
+       2/  \3      \3
+    [1,2]   [1,3]   [2,3]
+      \
+       \3
+       [1,2,3]  
 
-print(Solution().subsets3([1,2,3]))
+
+    '''
+    def subsets4(self, nums: List[int]) -> List[List[int]]:
+        power_set = []
+        subset = []
+
+        def solve(start):
+            if start > len(nums):
+                return
+            
+            power_set.append(subset.copy())
+
+            for idx in range(start, len(nums)):
+                subset.append(nums[idx])
+                solve(idx + 1)
+                subset.pop()
+
+        solve(0)
+        return power_set
+
+
+print(Solution().subsets4([1,2,3]))
