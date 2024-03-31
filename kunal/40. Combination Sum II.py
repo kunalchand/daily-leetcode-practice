@@ -1,42 +1,64 @@
-from typing import List
+import bisect
+import copy
+import heapq
+import math
+import random
+from bisect import bisect, bisect_left, bisect_right, insort, insort_left, insort_right
+from collections import Counter, defaultdict, deque
+from dataclasses import dataclass
+from functools import cmp_to_key, reduce
+from itertools import zip_longest
+from math import ceil, factorial, floor, sqrt
+from typing import Dict, List, Optional, Set, Tuple, Union
 
 
+# https://leetcode.com/problems/combination-sum-ii/
 class Solution:
-    def __init__(self):
-        self.ans = []
-
-    def helper(
-        self, ongoing: List[int], addon: List[int], freq: List[int], target: int
-    ) -> None:
-        if sum(ongoing) == target:
-            self.ans.append(ongoing)
+    # Set (TLE)
+    """
+    def generateCombination(self, candidates: List[int], target: int, current: List[int]) -> None:
+        if sum(current) == target:
+            if tuple(sorted(current)) not in self.duplicates:
+                self.ans.append(current)
+                self.duplicates.add(tuple(sorted(current)))
             return
-        elif sum(ongoing) > target:
+        elif sum(current) > target:
             return
         else:
-            for index, item in enumerate(addon):
-                new_freq = freq[index:]
-                new_freq[0] -= 1
-                if new_freq[0] > 0:
-                    self.helper(ongoing + [item], addon[index:], new_freq, target)
-                elif new_freq[0] == 0:
-                    self.helper(
-                        ongoing + [item], addon[index + 1 :], freq[index + 1 :], target
+            for index, candidate in enumerate(candidates):
+                self.generateCombination(candidates[index+1:], target, current + [candidate])
+
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.ans = []
+        self.duplicates = set()
+
+        self.generateCombination(candidates, target, [])
+
+        return self.ans
+    """
+
+    # Sort
+    def generateCombination(
+        self, candidates: List[int], target: int, current: List[int]
+    ) -> None:
+        if sum(current) == target:
+            self.ans.append(current)
+            return
+        elif sum(current) > target:
+            return
+        else:
+            for index, candidate in enumerate(candidates):
+                if index == 0 or candidates[index - 1] != candidates[index]:
+                    self.generateCombination(
+                        candidates[index + 1 :], target, current + [candidate]
                     )
 
     def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
-        dict_ = {}
+        candidates.sort()
 
-        for candidate in candidates:
-            dict_[candidate] = dict_.get(candidate, 0) + 1
+        self.ans = []
 
-        addon = []
-        freq = []
-        for key, value in dict_.items():
-            addon.append(key)
-            freq.append(value)
-
-        self.helper([], addon, freq, target)
+        self.generateCombination(candidates, target, [])
 
         return self.ans
 
