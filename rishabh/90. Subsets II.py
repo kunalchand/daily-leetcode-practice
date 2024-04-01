@@ -28,6 +28,18 @@ eg:       []                ` denotes unique nodes
   2  2`  2`
  /
  2`
+
+Better - skip duplicate branches, no set()
+APPROACH - 3
+eg:       []                ` denotes unique nodes
+        / | \               X denotes skipped branch
+       /  |  \
+      /   |   \
+   [1]`  [2]`   X
+   / \    |
+[1,2]` X  [2,2]`
+ /
+[1,2,2]`
 '''
 '''
     I- List [int]
@@ -45,7 +57,8 @@ eg:       []                ` denotes unique nodes
         
         2 IMPLEMENTATIONS:
         1: complete binary tree
-        2: left skewed tree
+        2: left skewed tree, use set instead of skipping duplicate 
+Better- 3: left skewed tree where every node is an answer, skip duplicate branches, no need of set
 
 '''
 class Solution:
@@ -95,6 +108,31 @@ class Solution:
         nums.sort()
         backtrack(0, [])
         return res
+
+    # BETTER APPROACH
+    # without set, every node is an answer, skip duplicate branches, like Combinations-II
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        curr_path = []
+
+        def backtrack(start):
+            if start > len(nums):
+                return
+
+            res.append(curr_path.copy())
+
+            for idx in range(start, len(nums)):
+                if idx > start and nums[idx] == nums[idx - 1]:
+                    continue
+
+                curr_path.append(nums[idx])
+                backtrack(idx + 1)
+                curr_path.pop()
+
+        nums.sort()
+        backtrack(0)
+        return res
+
 
     
 nums = [1,2,2]
