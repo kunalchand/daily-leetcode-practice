@@ -25,6 +25,18 @@ no duplicates
     not a complete tree where every node has same number of branches
     only the leftmost path will have the branches = len(nums)
 
+            eg: [2,3,6], t = 6
+
+                                                                     []
+                                                        /             |         \
+                                             /                        |             \
+                                        [2]                          [3]             [6]`
+                    /                    |          \                 |     \
+                  /                      |             \              |       \  
+             [2,2]                      [2,3]         [2,6] X        [3,3]`   [3,6]X    
+           /   |    \                   /    \
+    [2,2,2]` [2,2,3]X [2,2,6]X     [2,3,2]X [2,3,3] X
+    
 '''
 class IterativeRecursion:
     def combinationSum(self, nums: List[int], target: int) -> List[List[int]]:
@@ -40,7 +52,7 @@ class IterativeRecursion:
             
             for i in range(start, len(nums)):
                 path.append(nums[i])
-                helper(i)
+                helper(i)               # notice we don't do idx + 1 bcz curr_ele can be chosen multiple times
                 path.pop()
 
         helper(0)
@@ -61,7 +73,7 @@ class IterativeRecursion:
                 curr_sum += candidates[start]
                 curr_path.append(candidates[idx])
                 
-                dfs(idx, curr_sum)
+                dfs(idx, curr_sum)              # notice we don't do idx + 1 bcz curr_ele can be chosen multiple times
                 
                 curr_path.pop()
                 curr_sum -= candidates[start]
@@ -87,7 +99,7 @@ class IterativeRecursion:
             for i in range(start, len(nums)):
                 curr_sum += nums[i]
                 path.append(nums[i])
-                helper(i)
+                helper(i)                   # notice we don't do idx + 1 bcz curr_ele can be chosen multiple times
 
                 curr_sum -= nums[i]
                 path.pop()
