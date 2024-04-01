@@ -21,6 +21,17 @@ class Solution:
     in approach 2 (build the whole path):
     Notice how len(curr) == len(nums) is a terminating condition 
     bcz each ans is same length as input
+
+        eg: [1,2,3]
+                               []
+                  /             |            \
+             [1]               [2]               [3]
+            /   \            /     \            /   \
+        [1,2]   [1,3]     [2,1]   [2,3]     [3,1]   [3,2]
+         |        |         |        |        |        |
+      [1,2,3]   [1,3,2]   [2,1,3]  [2,3,1]  [3,1,2]  [3,2,1]
+
+
     '''
 
     '''
