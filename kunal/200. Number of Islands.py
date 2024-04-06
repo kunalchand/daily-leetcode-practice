@@ -58,6 +58,7 @@ class Solution:
     """
 
     # BFS Boundary Check Approach Time-O(m*n)
+    """
     def BFS(self, grid: List[List[str]]) -> None:
         visited = set()
         queue = deque()
@@ -93,6 +94,37 @@ class Solution:
         self.BFS(grid)
 
         return self.islandCount
+    """
+
+    # DFS Recursive, Boundary Check Approach Time-O(m*n)
+    def DFS(self, grid: List[List[int]], x: int, y: int) -> None:
+        if (
+            not (0 <= x < self.m)
+            or not (0 <= y < self.n)
+            or grid[x][y] == "0"
+            or (x, y) in self.visited
+        ):
+            return
+        else:
+            self.visited.add((x, y))
+
+            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
+                self.DFS(grid, x + dx, y + dy)
+
+    def numIslands(self, grid: List[List[str]]) -> int:
+        self.m = len(grid)
+        self.n = len(grid[0])
+
+        self.visited = set()
+        islandCount = 0
+
+        for i in range(self.m):
+            for j in range(self.n):
+                if grid[i][j] == "1" and (i, j) not in self.visited:
+                    self.DFS(grid, i, j)
+                    islandCount += 1
+
+        return islandCount
 
 
 print(
