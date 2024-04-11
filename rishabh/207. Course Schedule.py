@@ -9,9 +9,16 @@ class Solution:
         - [1,0], [2,0]
 
     Node  =>    Courses
+    
 
     TIME: O(N + E)
     '''
+
+    '''
+    APPROACH-1: course -> [prereqs]
+    works fine
+    '''
+    
     def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
         
         def dfs(course):
@@ -50,12 +57,15 @@ class Solution:
                 return False
         
         return True
-        
     
+
     '''
-    APPROACH-2: prereq -> [courses I can go to from this prereq]
+    APPROACH-2:
+    TLE at 48/52
+    prereq -> [courses that require this prereq]
     '''
-    def canFinish2(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+    
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
 
         # for every prereq, check if we can reach the end
         def dfs(prereq):
@@ -72,6 +82,7 @@ class Solution:
             for course in prereq_course_map[prereq]:
                 if not dfs(course):
                     return False
+               
             visited_on_curr_path.remove(prereq)
             return True
 
@@ -93,6 +104,54 @@ class Solution:
             if pre not in visited_overall:   # only check new paths
                 if not dfs(pre):
                     return False             # return False if any path has cycle
+        
+        return True
+    
+
+    '''
+    APRROACH-2.2: CORRECT
+    IMPROVEMENT ON ABOVE, 
+        - defaultdict, store every node in map
+        - CHANGED RETURN AND TERMINATING CONDITIONS 
+    EVERY PATH IS VALID UNTIL A CYCLE IS FOUND
+    ONLY RETURN FALSE IF THERE'S A CYCLE
+
+    prereq -> [courses that require this prereq]
+    '''
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+
+        # for every prereq, check if we can reach the end
+        def detect_cycle_dfs(prereq):
+            if prereq in visited_on_curr_path:      # cycle present
+                return True
+            
+            if prereq in visited_overall:            # if already visited
+                return False                         # return False, only check new paths
+            
+            visited_overall.add(prereq)
+            visited_on_curr_path.add(prereq)
+            
+            for course in prereq_course_map[prereq]:
+                if detect_cycle_dfs(course):
+                    return True
+            
+            visited_on_curr_path.remove(prereq)
+            return False
+
+        # traverse every path and see if there exist loop or not
+        prereq_course_map = defaultdict(list)
+
+        # make map
+        for course, prereq in prerequisites:
+            prereq_course_map[prereq].append(course)
+
+        visited_on_curr_path = set()        # will add/remove nodes as path grows/shrinks
+        visited_overall = set()             # keep track of all visited nodes (already explored paths) in the graph, never remove, used to stop duplicate work
+
+        # start DFS from every node
+        for pre in range(numCourses):
+            if detect_cycle_dfs(pre):
+                return False                # return False if any path has cycle
         
         return True
 
