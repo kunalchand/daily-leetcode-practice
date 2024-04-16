@@ -12,6 +12,49 @@ If two asteroids meet, the smaller one will explode.
 If both are the same size, both will explode. 
 Two asteroids moving in the same direction will never meet.
 
+2 to 10 ^ 4
+
+APPROACH: 
+    1. Brute Force => O(n ** 2)
+
+[5 , - 5] => []
+
+# collide
+[10, -5] => [10]
+
+# never collide
+    [-5, 10] => [-5, 10] 
+    [10, 5] or [-10, -5]
+
+
+[1, 2, -10] => [1, -10] => [-10]
+
+
+[a, B, c, d, e, -f, -G]         => e - f
+[a, b, c, d, -f]                => d - f
+[a, b, c, -f]                   => c - f
+.
+[a ,B, -G]
+.
+[-f]
+
+
+[a, B, c, d, e, -f]
+[a, B, c, D, B]
+[a, B]
+
+
+[a, B, c, d, E || -f, -G]
+
+[a, B, c, d || -f, -G] or [a, B, c, d, e || -G]
+
+
+
+
+[a, B, c, d, -f, -G]
+
+[-G]
+
 Example 1:
 Input: asteroids = [5,10,-5]
 Output: [5,10]
