@@ -31,18 +31,20 @@ class Solution:
         for index, num in enumerate(nums):
             self.duplicates[num].append(index)
 
-    def binarySearch(self, duplicate: List, left: int, right: int, find: int) -> int:
+    def binarySearch(self, duplicate: List, find: int) -> int:
+        left, right = 0, len(duplicate)-1
+        index = -1
+
         while left <= right:
             mid = (left + right)//2
 
-            if duplicate[mid] == find:
-                return mid
-            elif duplicate[mid] > find:
-                right = mid - 1
-            else:
+            if duplicate[mid] <= find:
+                index = mid
                 left = mid + 1
+            else:
+                right = mid - 1
 
-        return right
+        return index
 
     def numberOfSubarrays(self, nums: List[int]) -> int:
         self.nextGreater = [-1] * len(nums)
@@ -54,8 +56,8 @@ class Solution:
         count = 0
 
         for index, num in enumerate(nums):
-            start = self.binarySearch(self.duplicates[num], 0, len(self.duplicates[num])-1, index)
-            end = self.binarySearch(self.duplicates[num], 0, len(self.duplicates[num])-1, self.nextGreater[index])
+            start = self.binarySearch(self.duplicates[num], index)
+            end = self.binarySearch(self.duplicates[num], self.nextGreater[index])
 
             length = end - start + 1
 
