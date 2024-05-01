@@ -11,12 +11,11 @@ from itertools import zip_longest
 from math import ceil, factorial, floor, sqrt
 from typing import Dict, List, Optional, Set, Tuple, Union
 
+
 # https://leetcode.com/problems/min-stack/description/
-
-# Using Stack
-"""
 class MinStack:
-
+    # Using Stack
+    """
     def __init__(self):
         self.minstack = []
 
@@ -34,16 +33,14 @@ class MinStack:
 
     def getMin(self) -> int:
         return self.minstack[-1][1]
-"""
+    """
 
-
-# w/o PreBuilt Data Structure like stack (LLD)
-class MinStack:
+    # w/o PreBuilt Data Structure like stack (LLD)
     class Node:
-        def __init__(self, val: int, min: int, next: "Node"):  # type: ignore
+        def __init__(self, val: int, minimum: int, down: "Node"):  # type: ignore
             self.val = val
-            self.min = min
-            self.next = next
+            self.minimum = minimum
+            self.down = down
 
     def __init__(self):
         self.head = None
@@ -52,16 +49,16 @@ class MinStack:
         if self.head == None:
             self.head = MinStack.Node(val, val, None)
         else:
-            self.head = MinStack.Node(val, min(val, self.head.min), self.head)
+            self.head = MinStack.Node(val, min(val, self.head.minimum), self.head)
 
     def pop(self) -> None:
-        self.head = self.head.next
+        self.head = self.head.down
 
     def top(self) -> int:
         return self.head.val
 
     def getMin(self) -> int:
-        return self.head.min
+        return self.head.minimum
 
 
 # Your MinStack object will be instantiated and called as such:
