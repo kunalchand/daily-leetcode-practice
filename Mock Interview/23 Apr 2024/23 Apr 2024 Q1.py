@@ -20,6 +20,27 @@ Example 2:
 Input: wall = [[1],[1],[1]]
 Output: 3
 """
+'''
+10 ^ 4 rows = n rows
+10 ^ 4 bricks in a row = K bricks = 2K steps
+
+
+[[1,2,2,1],
+[ 3,1,2],
+[ 1,3,2],
+[ 2,4],
+[ 3,1,2],
+[ 1,3,1,1]]
+
+ 0 1 2 3 4 5
+[0 3        ]
+
+
+-----   ------  -----
+----------  -----  --  
+
+
+'''
 
 import bisect
 import copy
