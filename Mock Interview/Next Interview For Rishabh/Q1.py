@@ -20,6 +20,8 @@ N/A
 
 Constraints:
 N/A
+
+
 """
 
 import bisect
@@ -42,7 +44,42 @@ class ListNode:
         self.val = val
         self.next = next
 
+        # Generate a Linked List from a List
+        # stack = [13 8 4]
+        #  [] -> [13] -> [8] -> [4]
+        # dummy                 dcur
+
+        # Generate a Linked List from a List
+        # stack = [13 8]
+        #  [0] -> [13] -> [8]
+        # dummy           dcur
+        # i = 2
+
+        # [5,  2,  13,  3,  8]
+        #              cur
+        # stack = bottom [13 8] top
+
 
 class Solution:
+    # Stack, Time-O(n) Space-O(n)
     def removeNodes(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        pass
+        stack = []
+        cur = head
+
+        stack.append(cur.val)
+
+        while cur.next:
+            while cur.next.val > stack[-1]:
+                stack.pop()
+            stack.append(cur.next.val)
+            cur = cur.next
+
+        i = 0
+        dummyNode = ListNode()
+        dcur = dummyNode
+        while i < len(stack):
+            dcur.next = ListNode(stack[i])
+            dcur = dcur.next
+            i += 1
+
+        return dummyNode.next
