@@ -13,6 +13,20 @@ Return the maximum sum of the happiness values of the selected children you can 
 
 Example 1:
 Input: happiness = [1,2,3], k = 2
+
+O (k * log n) + O (n)
+
+happiness = [0,2]
+
+[0,1,0,0]   k = 3
+
+res = 5 + 3 + 1
+
+res = a - 0 + b - 1 + c - 2 + d - 3 
+
+
+res = 2 + 2 = 4
+
 Output: 4
 Explanation: We can pick 2 children in the following way:
 - Pick the child with the happiness value == 3. The happiness value of the remaining children becomes [0,1].
@@ -45,4 +59,23 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 class Solution:
     def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
-        pass
+        max_heap = [-x for x in happiness]
+        res = 0 
+
+        heapq.heapify(max_heap)
+        
+        for i in k:
+            if max_heap[0] != 0:
+                top = -heapq.heappop(max_heap)
+                res += top - i
+
+        return res
+    
+
+# [6,5,3,1], k = 4 i = 3
+# [0]
+# 6 + 4 + 1 + 0 - 3
+
+
+
+# res = (6 - 0) + (5 - 1) + (3 - 2) = 6 + 4 + 1 = 11
