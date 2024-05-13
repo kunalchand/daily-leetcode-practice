@@ -12,6 +12,7 @@ from math import ceil, factorial, floor, sqrt
 from typing import Dict, List, Optional, Set, Tuple, Union
 
 
+# https://leetcode.com/problems/score-after-flipping-matrix/
 class Solution:
     def flipRow(self, grid: List[List[int]], row: int) -> None:
         for col in range(self.n):
