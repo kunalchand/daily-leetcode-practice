@@ -30,25 +30,16 @@ class Solution:
             self.visited.remove((x, y))
             return
 
-    def generateStartPoints(
-        self, grid: List[List[int]], startPoints: List[Tuple[int, int]]
-    ) -> None:
-        for row in range(self.m):
-            for col in range(self.n):
-                if grid[row][col] != 0:
-                    startPoints.append((row, col))
-
     def getMaximumGold(self, grid: List[List[int]]) -> int:
         self.m = len(grid)
         self.n = len(grid[0])
 
         self.maxGold = 0
 
-        startPoints = []
-        self.generateStartPoints(grid, startPoints)
-
-        for x, y in startPoints:
-            self.visited = set()
-            self.DFS(grid, x, y, 0)
+        for row in range(self.m):
+            for col in range(self.n):
+                if grid[row][col] != 0:
+                    self.visited = set()
+                    self.DFS(grid, row, col, 0)
 
         return self.maxGold
