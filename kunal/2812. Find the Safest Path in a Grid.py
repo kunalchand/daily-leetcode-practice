@@ -34,27 +34,28 @@ class Solution:
                     self.visited.add((x + dx, y + dy))
                     self.queue.append((x + dx, y + dy, level + 1))
 
-    def dijkstra(self) -> None:
+    def modifiedDijkstra(self) -> None:
         maxHeap = []
         heapq.heappush(maxHeap, (-self.distance[0][0], 0, 0))
 
         while True:
             d, x, y = heapq.heappop(maxHeap)
 
-            if (x, y) not in self.visited:
-                self.visited.add((x, y))
-                self.safeness = min(self.safeness, -d)
+            self.safeness = min(self.safeness, -d)
 
-                if x == self.n - 1 and y == self.n - 1:
-                    return
+            if x == self.n - 1 and y == self.n - 1:
+                return
 
-                for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
-                    if (0 <= x + dx < self.n) and (
-                        0 <= y + dy < self.n
-                    ):  # and (x+dx, y+dy) not in self.visited:
-                        heapq.heappush(
-                            maxHeap, (-self.distance[x + dx][y + dy], x + dx, y + dy)
-                        )
+            for dx, dy in [(1, 0), (0, 1), (-1, 0), (0, -1)]:
+                if (
+                    (0 <= x + dx < self.n)
+                    and (0 <= y + dy < self.n)
+                    and (x + dx, y + dy) not in self.visited
+                ):
+                    self.visited.add((x + dx, y + dy))
+                    heapq.heappush(
+                        maxHeap, (-self.distance[x + dx][y + dy], x + dx, y + dy)
+                    )
 
     def maximumSafenessFactor(self, grid: List[List[int]]) -> int:
         self.n = len(grid)
@@ -67,6 +68,6 @@ class Solution:
 
         self.safeness = float("inf")
         self.visited = set()
-        self.dijkstra()
+        self.modifiedDijkstra()
 
         return self.safeness
