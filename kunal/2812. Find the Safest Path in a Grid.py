@@ -36,6 +36,8 @@ class Solution:
 
     def modifiedDijkstra(self) -> None:
         maxHeap = []
+
+        self.visited.add((0, 0))
         heapq.heappush(maxHeap, (-self.distance[0][0], 0, 0))
 
         while True:
