@@ -41,10 +41,7 @@ class Solution:
 
         sentenceList, validity = self.recursion(s)
 
-        if validity:
-            return sentenceList
-        else:
-            return []
+        return sentenceList
     """
 
     # DP, Top Down Memoization
@@ -76,10 +73,7 @@ class Solution:
 
         sentenceList, validity = self.recursion(s)
 
-        if validity:
-            return sentenceList
-        else:
-            return []
+        return sentenceList
 
 
 print(Solution().wordBreak("catsanddog", ["cat", "cats", "and", "sand", "dog"]))
