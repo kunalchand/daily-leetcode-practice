@@ -19,13 +19,16 @@ class Solution:
 
         rank = {}
 
+        # initialise each team with votes for all possible ranks
         for team in votes[0]:
             rank[team] = [0] * teams
 
+        # count votes for respective rank for each team
         for voter in votes:
             for index in range(len(voter)):
                 rank[voter[index]][index] += 1
 
+        # stich team name and rank together in a list
         votes = [(team, ranking) for team, ranking in rank.items()]
 
         def custom_method(a, b):
@@ -49,10 +52,12 @@ class Solution:
             else:
                 return 0
 
+        # custom sort (resolve tie, then alphabetically)
         votes.sort(key=cmp_to_key(custom_method))
 
         order = ""
 
+        # concatenates team names
         for vote in votes:
             order += vote[0]
 
