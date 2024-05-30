@@ -32,7 +32,7 @@ class Solution:
         return count
     """
 
-    # XOR Property
+    # XOR Property, Time-O(n*n) Space-O(n)
     def countTriplets(self, arr: List[int]) -> int:
         count = 0
 
