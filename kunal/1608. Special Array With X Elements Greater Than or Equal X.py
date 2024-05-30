@@ -14,6 +14,8 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 # https://leetcode.com/problems/special-array-with-x-elements-greater-than-or-equal-x/
 class Solution:
+    # Suffix Count
+    """
     def specialArray(self, nums: List[int]) -> int:
         newNums = sorted(Counter(nums).items())
         suffixCount = [0] * len(newNums)
@@ -34,5 +36,22 @@ class Solution:
                 x += 1
             elif x > key:
                 pointer += 1
+
+        return -1
+    """
+
+    # Deque
+    def specialArray(self, nums: List[int]) -> int:
+        stream = deque(sorted(nums))
+
+        x = 0
+
+        while stream:
+            if x <= stream[0]:
+                if x == len(stream):
+                    return x
+                x += 1
+            else:
+                stream.popleft()
 
         return -1
