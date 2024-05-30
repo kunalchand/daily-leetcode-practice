@@ -14,7 +14,7 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 # https://leetcode.com/problems/count-triplets-that-can-form-two-arrays-of-equal-xor/
 class Solution:
-    # Brute Force (TLE)
+    # Brute Force, Time-O(n^4) (TLE)
     """
     def countTriplets(self, arr: List[int]) -> int:
         count = 0
@@ -32,7 +32,8 @@ class Solution:
         return count
     """
 
-    # XOR Property, Time-O(n*n) Space-O(n)
+    # XOR Property Using Deque, Time-O(n^3) Space-O(n)
+    """
     def countTriplets(self, arr: List[int]) -> int:
         count = 0
 
@@ -56,6 +57,29 @@ class Solution:
 
                     if a == b:
                         # print(i, k - len(dq) + 1, k)
+                        count += 1
+
+        return count
+    """
+
+    # XOR Property, Time-O(n^3) Space-O(1)
+    def countTriplets(self, arr: List[int]) -> int:
+        count = 0
+
+        for i in range(len(arr) - 1):
+            for k in range(i + 1, len(arr)):
+                a = 0
+                b = 0
+
+                for j in range(i, k + 1):
+                    b ^= arr[j]
+
+                for j in range(i, k):
+                    a ^= arr[j]
+                    b ^= arr[j]
+
+                    if a == b:
+                        # print(i, j+1, k)
                         count += 1
 
         return count
