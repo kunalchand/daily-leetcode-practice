@@ -65,7 +65,7 @@ class Solution:
         else:
             return self.findRoot(self.roots[point])
 
-    def mergeRoots(self, pointRoot: str, otherPointRoot: str) -> None:
+    def mergeRoot(self, pointRoot: str, otherPointRoot: str) -> None:
         self.roots[otherPointRoot] = pointRoot
 
     def manhattanDistance(self, point: List[int], otherPoint: List[int]) -> int:
@@ -78,7 +78,6 @@ class Solution:
         edges = []
 
         # Generate Edges
-        visitedPoint = set()
         for pointIndex in range(len(points)):
             for otherPointIndex in range(pointIndex + 1, len(points)):
                 point = points[pointIndex]
@@ -112,7 +111,7 @@ class Solution:
             otherPointRoot = self.findRoot((otherPointX, otherPointY))
             if pointRoot != otherPointRoot:
                 cost += distance
-                self.mergeRoots(pointRoot, otherPointRoot)
+                self.mergeRoot(pointRoot, otherPointRoot)
 
         return cost
 
