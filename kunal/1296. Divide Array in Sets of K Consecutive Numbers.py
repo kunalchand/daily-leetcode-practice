@@ -12,11 +12,11 @@ from math import ceil, factorial, floor, sqrt
 from typing import Dict, List, Optional, Set, Tuple, Union
 
 
-# https://leetcode.com/problems/hand-of-straights/
+# https://leetcode.com/problems/divide-array-in-sets-of-k-consecutive-numbers/
 class Solution:
-    # Just Heap
+    # Heap (TLE)
     """
-    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+    def isPossibleDivide(self, hand: List[int], groupSize: int) -> bool:
         if len(hand)%groupSize != 0:
             return False
         else:
@@ -45,7 +45,7 @@ class Solution:
     """
 
     # Heap and Map
-    def isNStraightHand(self, hand: List[int], groupSize: int) -> bool:
+    def isPossibleDivide(self, hand: List[int], groupSize: int) -> bool:
         if len(hand) % groupSize != 0:
             return False
         else:
