@@ -60,6 +60,7 @@ class Solution:
     """
 
     # Time-O(n) Space-O(1) Two Pointer
+    """
     def isPalindrome(self, s: str) -> bool:
         start = 0
         end = len(s) - 1
@@ -76,6 +77,25 @@ class Solution:
 
             start += 1
             end -= 1
+
+        return True
+    """
+
+    # Time-O(n) Space-O(1) Two Pointer (Cleaner Code)
+    def isPalindrome(self, s: str) -> bool:
+        left = 0
+        right = len(s) - 1
+
+        while left <= right:
+            if not s[left].isalnum():
+                left += 1
+            elif not s[right].isalnum():
+                right -= 1
+            elif s[left].lower() != s[right].lower():
+                return False
+            else:
+                left += 1
+                right -= 1
 
         return True
 
