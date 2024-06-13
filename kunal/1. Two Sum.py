@@ -33,6 +33,21 @@ class Solution:
                 return [index, hashmap[target-num]]
     """
 
+    # HashMap Two Pass, Duplicate Handle, Time-O(n) Space-O(n)
+    """
+    class Solution:
+        def twoSum(self, nums: List[int], target: int) -> List[int]:
+            hashmap = defaultdict(list)
+
+            for index, num in enumerate(nums):
+                hashmap[num].append(index)
+
+            for index, num in enumerate(nums):
+                for otherIndex in hashmap[target - num]:
+                    if index != otherIndex:
+                        return [index, otherIndex]
+    """
+
     # HashMap One Pass Time-O(n) Space-O(n)
     def twoSum(self, nums: List[int], target: int) -> List[int]:
         hashmap = {}
