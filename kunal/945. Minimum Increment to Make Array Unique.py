@@ -32,18 +32,19 @@ class Solution:
     """
 
     # Heap
+    """
     def minIncrementForUnique(self, nums: List[int]) -> int:
         nums.append(float("inf"))
         nums.sort()
         numsCount = Counter(nums)
         moves = 0
-
+        
         # Store possible newNums
         minHeap = []
         for index in range(1, len(nums)):
-            if nums[index] - nums[index - 1] > 1:
-                newNum = nums[index - 1] + 1
-                lowerBound = nums[index - 1] + 1
+            if nums[index] - nums[index-1] > 1:
+                newNum = nums[index-1] + 1
+                lowerBound = nums[index-1] + 1
                 upperBound = nums[index] - 1
                 heapq.heappush(minHeap, [newNum, lowerBound, upperBound])
 
@@ -59,8 +60,24 @@ class Solution:
                 moves += newNum - num
 
                 if lowerBound < upperBound:
-                    heapq.heappush(
-                        minHeap, [lowerBound + 1, lowerBound + 1, upperBound]
-                    )
+                    heapq.heappush(minHeap, [lowerBound + 1, lowerBound + 1, upperBound])
+
+        return moves
+    """
+
+    # Sort
+    # Reference: https://leetcode.com/problems/minimum-increment-to-make-array-unique/editorial/
+    def minIncrementForUnique(self, nums: List[int]) -> int:
+        nums.sort()
+        moves = 0
+
+        for index in range(1, len(nums)):
+            previous = nums[index - 1]
+            current = nums[index]
+
+            if previous >= current:
+                newNum = previous + 1
+                moves += newNum - current
+                nums[index] = newNum
 
         return moves
