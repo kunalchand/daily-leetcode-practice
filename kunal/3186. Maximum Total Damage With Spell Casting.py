@@ -24,17 +24,15 @@ class Solution:
         if index >= len(self.power):
             return 0
         else:
-            # Can't Damage
-            if self.power[index] == oldDamage + 1 or self.power[index] == oldDamage + 2:
-                self.memo[(index, oldDamage)] = self.recursion(index + 1, oldDamage)
-                return self.memo[(index, oldDamage)]
+            maxPower = 0
 
-            # Can Damage
             # Damage
-            maxPower = max(self.power[index], self.power[index] + self.recursion(index + 1, self.power[index]))
+            if not (self.power[index] == oldDamage + 1 or self.power[index] == oldDamage + 2):
+                maxPower = max(maxPower, self.power[index] + self.recursion(index + 1, self.power[index]))
+
             # No Damage
             maxPower = max(maxPower, self.recursion(index + 1, max(oldDamage, self.power[index] - 3)))
-            # Refer twitch to know why max and how to fix MLE
+            # Refer twitch stream to know why -3 (for fixing MLE)
 
             self.memo[(index, oldDamage)] = maxPower
             return self.memo[(index, oldDamage)]
@@ -52,22 +50,23 @@ class Solution:
         if index >= len(self.power):
             return 0
         else:
-            # Can't Damage
-            if self.power[index] == oldDamage + 1 or self.power[index] == oldDamage + 2:
-                return self.recursion(index + 1, oldDamage)
+            maxPower = 0
 
-            # Can Damage
             # Damage
-            maxPower = max(
-                self.power[index],
-                self.power[index] + self.recursion(index + 1, self.power[index]),
-            )
+            if not (
+                self.power[index] == oldDamage + 1 or self.power[index] == oldDamage + 2
+            ):
+                maxPower = max(
+                    maxPower,
+                    self.power[index] + self.recursion(index + 1, self.power[index]),
+                )
+
             # No Damage
             maxPower = max(
                 maxPower,
                 self.recursion(index + 1, max(oldDamage, self.power[index] - 3)),
             )
-            # Refer twitch to know why max and how to fix MLE
+            # Refer twitch stream to know why -3 (for fixing MLE)
 
             return maxPower
 
