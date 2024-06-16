@@ -13,6 +13,7 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 
 # https://leetcode.com/problems/maximum-total-damage-with-spell-casting/
+# Similar to 740. Delete and Earn - https://leetcode.com/problems/delete-and-earn/
 class Solution:
     # Reference: https://www.twitch.tv/videos/2173278701
     # Manual Memoization
