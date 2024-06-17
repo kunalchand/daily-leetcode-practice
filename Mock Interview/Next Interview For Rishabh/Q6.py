@@ -13,8 +13,25 @@ faulty keyboard.
 Return the final string that will be 
 present on your laptop screen.
 
-Example 1:
-Input: s = "string"
+string -> rtsng
+
+
+"" -> ""
+"st" ->  "st"
+"sti" -> "ts"
+
+          *
+"striaibicide" -> "rtsa" -> astr -> astrb -> brtsa -> brtsac -> castrbde
+
+->"castrb" <-
+"castrbde"
+i = 2
+
+i -> even
+i -> odd
+
+Example 1:       *
+Input: s = "string"  -> "rtsng"
 Output: "rtsng"
 Explanation: 
     After typing first character, the text on the screen is "s".
@@ -47,5 +64,34 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 
 
 class Solution:
-    def finalString(self, s: str) -> str:
-        pass
+    def finalString(self, s: str) -> str:   
+        out = []
+        for c in s:
+            if c == "i":
+                out = reversed(out)
+            else:
+                out.append(c)
+
+        return "".join(out)
+    
+    def finalString(self, s: str) -> str:   
+        out = deque()
+        i = 0
+        for c in s:
+            if c == "i":
+                i += 1
+            else:
+                if i % 2 == 0:
+                    out.append(c)
+                else:
+                    out.appendleft(c)
+
+        if i % 2:
+            out = reversed(out)
+            
+        return "".join(out)
+
+#        *
+# striaibicide
+# out = [castrbde]
+# i = 3
