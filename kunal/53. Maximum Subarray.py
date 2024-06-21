@@ -1,13 +1,15 @@
+import bisect
 import copy
 import heapq
 import math
 import random
+from bisect import bisect, bisect_left, bisect_right, insort, insort_left, insort_right
 from collections import Counter, defaultdict, deque
 from dataclasses import dataclass
-from functools import cmp_to_key, reduce
-from itertools import zip_longest
-from math import factorial, sqrt
-from typing import Dict, List, Optional, Set, Tuple, Union
+from functools import cache, cmp_to_key, lru_cache, reduce
+from itertools import combinations, pairwise, permutations, zip_longest
+from math import ceil, factorial, floor, inf, sqrt
+from typing import Deque, Dict, List, Optional, Set, Tuple, Union
 
 
 class Solution:
@@ -28,6 +30,7 @@ class Solution:
     """
 
     # O(n) Kadane Algorithm
+    """
     def maxSubArray(self, nums: List[int]) -> int:
         current_sum = 0
         max_sum = float("-inf")
@@ -43,6 +46,27 @@ class Solution:
             pointer += 1
 
         return max_sum
+    """
+
+    # Sliding Window, Time-O(n) Space-(1)
+    class Solution:
+        def maxSubArray(self, nums: List[int]) -> int:
+            left = 0
+            # right = 0
+            windowSum = 0
+            maxSum = -inf
+
+            for num in nums:
+
+                while windowSum < 0:
+                    windowSum -= nums[left]
+                    left += 1
+
+                windowSum += num
+                # right += 1
+                maxSum = max(maxSum, windowSum)
+
+            return maxSum
 
 
 print(Solution().maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
