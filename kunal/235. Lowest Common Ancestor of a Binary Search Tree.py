@@ -20,6 +20,58 @@ class TreeNode:
         self.right = None
 
 
+# Brute Force
+"""
+    def generatePOrder(self, root: 'TreeNode', p: 'TreeNode') -> None:
+        if not root: 
+            return
+        else:
+            self.p_order.append(root)
+
+            if root.val == p.val:
+                return
+            elif root.val < p.val:
+                self.generatePOrder(root.right, p)
+            elif root.val > p.val:
+                self.generatePOrder(root.left, p)
+    
+    def generateQOrder(self, root: 'TreeNode', q: 'TreeNode') -> bool:
+        if not root: 
+            return False
+        else:
+            self.q_order.append(root)
+
+            if root.val == q.val:
+                return True
+                
+            foundInLeft = self.generateQOrder(root.left, q)
+            foundInRight = self.generateQOrder(root.right, q)
+
+            if foundInLeft or foundInRight:
+                return True
+            else:
+                self.q_order.pop()
+                return False
+
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        self.p_order = []
+        self.q_order = []
+
+        self.generatePOrder(root, p)
+        self.generateQOrder(root, q)
+
+        lca = None
+
+        for p_node, q_node in zip(self.p_order, self.q_order):
+            if p_node.val == q_node.val:
+                lca = p_node
+            else:
+                break
+        
+        return lca
+"""
+
+
 # Recursin w/ lots of conditions
 """
 class Solution:
