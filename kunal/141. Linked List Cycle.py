@@ -50,7 +50,8 @@ class Solution:
         return False
     """
 
-    # Time-O(n) Space-O(1) Tortoise Haze Approach
+    # Time-O(n) Space-O(1) Slow Fast Approach
+    """
     def hasCycle(self, head: Optional[ListNode]) -> bool:
         slow = ListNode(0, head)
         fast = ListNode(0, head)
@@ -63,5 +64,20 @@ class Solution:
                 if fast.next is None:
                     return False
                 fast = fast.next.next
+
+        return False
+    """
+
+    # Time-O(n) Space-O(1) Tortoise Hare Approach
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        tortoise = head
+        hare = head
+
+        while tortoise and hare and hare.next:
+            tortoise = tortoise.next
+            hare = hare.next.next
+
+            if tortoise == hare:
+                return True
 
         return False
