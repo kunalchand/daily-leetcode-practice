@@ -11,6 +11,8 @@ Implement the SeatManager class:
 * void unreserve(int seatNumber) Unreserves the seat with the given seatNumber.
  
 
+
+
 Example 1:
 Input:
     ["SeatManager", "reserve", "reserve", "unreserve", "reserve", "reserve", "reserve", "reserve", "unreserve"]
@@ -44,17 +46,43 @@ from itertools import combinations, pairwise, permutations, zip_longest
 from math import ceil, factorial, floor, inf, sqrt
 from typing import Deque, Dict, List, Optional, Set, Tuple, Union
 
+'''
+
+1 <= n <= 10 ^ 5
+
+n = 5
+
+0 1 2 3 4 5 6 7 8 9 
+_ R U U R _
+
+
+n = 5
+
+top [5]
+
+0 1 2 3 4 5
+F T T T T F
+
+
+'''
 
 class SeatManager:
 
     def __init__(self, n: int):
-        pass
+        self.min_heap = [i for i in range(1, n + 1)]      # unreserved seats
+        heapq.heapify(self.min_heap)
+        
+        self.reserved = [False for i in range(n + 1)]       # reserved seats
 
     def reserve(self) -> int:
-        pass
+        idx = heapq.heappop(self.min_heap)
+        self.reserved[idx] = True
+        return idx        
 
     def unreserve(self, seatNumber: int) -> None:
-        pass
+        self.reserved[seatNumber] = False
+        heapq.heappush(self.min_heap, seatNumber)
+
 
 
 # Your SeatManager object will be instantiated and called as such:

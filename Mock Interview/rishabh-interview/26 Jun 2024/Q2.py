@@ -9,7 +9,15 @@ The interpreted strings are then concatenated in the original order.
 
 Given the string command, return the Goal Parser's interpretation of command.
 
-Example 1:
+1
+100
+
+
+
+
+str.replace("()", "o")
+
+Example 1:               *
 Input: command = "G()(al)"
 Output: "Goal"
     Explanation: The Goal Parser interprets the command as follows:
@@ -38,6 +46,32 @@ from math import ceil, factorial, floor, inf, sqrt
 from typing import Deque, Dict, List, Optional, Set, Tuple, Union
 
 
+'''
+              * 
+0 1 2 3 4 5 6
+G ( ) ( a l )
+
+out = Goal
+'''
+
 class Solution:
     def interpret(self, command: str) -> str:
-        pass
+        N = len(command)
+        res = []
+                
+        i = 0
+        while i < N:
+            if command[i] == "(":
+                if command[i + 1] == ")":
+                    res.append("o")
+                    i += 1
+                else:
+                    res.append("al")
+                    i += 3
+            else:
+                res.append("G")
+            
+            i += 1
+        
+        return "".join(res)
+        
