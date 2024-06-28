@@ -51,7 +51,8 @@ class Solution:
         return max_length
     """
 
-    # Sliding Window Time-O(n) Space-O(n)
+    # Sliding Window Implemntation 1, Time-O(n) Space-O(n)
+    """
     def lengthOfLongestSubstring(self, s: str) -> int:
         max_length = 0
 
@@ -70,6 +71,27 @@ class Solution:
                 start += 1
 
         return max_length
+    """
+
+    # Sliding Window Implemntation 2, Time-O(n) Space-O(n)
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        left = 0
+
+        elementsInWindow = set()
+        longest = 0
+
+        for char in s:
+            if char not in elementsInWindow:
+                elementsInWindow.add(char)
+                longest = max(longest, len(elementsInWindow))
+            else:
+                while char in elementsInWindow:
+                    elementsInWindow.remove(s[left])
+                    left += 1
+                elementsInWindow.add(char)
+                longest = max(longest, len(elementsInWindow))
+
+        return longest
 
 
 print(Solution().lengthOfLongestSubstring("abcabcbb"))
