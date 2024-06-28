@@ -13,12 +13,12 @@ from typing import Dict, List, Optional, Set, Tuple, Union
 class Solution:
     # Time-O(n*n + n*logn) Two Pointer w/ sort
     """
-    def twoSum2(self, nums: List[int], i: int, set_: Set) -> None:
+    def twoSum2(self, nums: List[int], i: int, triplets: Set) -> None:
         j, k = i+1, len(nums) - 1
 
-        while j < len(nums) and k < len(nums) and j < k:
+        while j < len(nums) and k >= 0 and j < k:
             if nums[i] + nums[j] + nums[k] == 0:
-                set_.add((nums[i], nums[j], nums[k]))
+                triplets.add((nums[i], nums[j], nums[k]))
                 j += 1
                 k -= 1
             elif nums[i] + nums[j] + nums[k] < 0:
@@ -29,12 +29,13 @@ class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
 
-        set_ = set()
+        triplets = set()
 
         for i in range(len(nums)):
-            self.twoSum2(nums, i, set_)
+            if i == 0 or nums[i] > nums[i-1]:
+                self.twoSum2(nums, i, triplets)
 
-        return [list(tuple_) for tuple_ in set_]
+        return [list(triplet) for triplet in triplets]
     """
 
     # Time-O(n*n) HashMap w/o sort
