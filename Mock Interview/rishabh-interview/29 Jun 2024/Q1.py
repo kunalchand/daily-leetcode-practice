@@ -17,6 +17,9 @@ Example 1:
 Example 2:
     Input: root = [3,0,4,null,2,null,null,1], low = 1, high = 3
     Output: [3,2,null,1]    
+    
+
+
 """
 
 import bisect
@@ -42,9 +45,27 @@ class TreeNode:
         self.left = left
         self.right = right
 
+'''
+node.val < low => exclude this node and left subtree
+node.val > high => exclude this node and right subtree
+low <= node.val <= high => it'll stay
+'''
 
 class Solution:
-    def trimBST(
-        self, root: Optional[TreeNode], low: int, high: int
-    ) -> Optional[TreeNode]:
-        pass
+    def trimBST(self, root: Optional[TreeNode], low: int, high: int) -> Optional[TreeNode]:
+        
+        def dfs(node):
+            if not node:
+                return None
+            
+            if node.val < low:
+                return dfs(node.right)
+            
+            if high < node.val:
+                return dfs(node.left)
+            
+            node.left = dfs(node.left)
+            node.right = dfs(node.right)
+            return node
+        
+        return dfs(root)
